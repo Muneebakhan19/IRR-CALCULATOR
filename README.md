@@ -1,1 +1,18 @@
 # IRR-CALCULATOR
+cash_flows = []
+n = int(input("How many cash flows? "))
+for i in range(n):
+    cash_flows.append(float(input(f"Year {i}: ")))
+
+lo, hi = 0.0, 1.0
+
+while (hi - lo) > 0.00001:
+    mid = (lo + hi) / 2
+    npv_lo = sum(cash_flows[t] / (1 + lo) ** t for t in range(n))
+    npv_mid = sum(cash_flows[t] / (1 + mid) ** t for t in range(n))
+    if npv_lo * npv_mid < 0:
+        hi = mid
+    else:
+        lo = mid
+
+print(f"IRR = {mid * 100:.2f}%")60
